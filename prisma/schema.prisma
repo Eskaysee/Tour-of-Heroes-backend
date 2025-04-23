@@ -14,9 +14,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum HeroType {
+  TANK
+  HEALER
+  DPS
+}
+
 model Hero {
   id          Int      @id @default(autoincrement())
   name        String  @unique
   powerLevel  Int
+  power       String
+  type        HeroType
   createdAt   DateTime @default(now())
 }

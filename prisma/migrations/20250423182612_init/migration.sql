@@ -7,3 +7,6 @@ CREATE TABLE "Hero" (
 
     CONSTRAINT "Hero_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Hero_name_key" ON "Hero"("name");

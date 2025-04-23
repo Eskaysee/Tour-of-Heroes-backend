@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { CreateHeroDto } from "./dto/create-hero.dto";
 import { UpdateHeroDto } from "./dto/update-hero.dto";
 import { PrismaService } from "src/prisma/prisma.service";
+import { HeroType } from "generated/prisma";
 
 @Injectable()
 export class HeroService {
@@ -33,6 +34,10 @@ export class HeroService {
    */
   findOne(id: number) {
     return this.prisma.hero.findUnique({ where: { id } });
+  }
+
+  findHeroByType(type: HeroType) {
+    return this.prisma.hero.findMany({ where: { type } });
   }
 
   /**

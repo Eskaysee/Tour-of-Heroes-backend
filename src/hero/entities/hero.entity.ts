@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Hero } from "generated/prisma";
+import { Hero, HeroType } from "generated/prisma";
 
 export class HeroEntity implements Hero {
   @ApiProperty()
@@ -13,4 +13,10 @@ export class HeroEntity implements Hero {
 
   @ApiProperty()
   createdAt: Date;
+
+  @ApiProperty()
+  power: string;
+
+  @ApiProperty()
+  type: HeroType;
 }

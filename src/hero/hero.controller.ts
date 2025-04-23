@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from "@nestjs/common";
 import { HeroService } from "./hero.service";
 import { CreateHeroDto } from "./dto/create-hero.dto";
@@ -46,8 +47,8 @@ export class HeroController {
    */
   @Get(":id")
   @ApiOkResponse({ type: HeroEntity })
-  findOne(@Param("id") id: string) {
-    return this.heroService.findOne(+id);
+  findOne(@Param("id", ParseIntPipe) id: number) {
+    return this.heroService.findOne(id);
   }
 
   /**
@@ -58,8 +59,11 @@ export class HeroController {
    */
   @Patch(":id")
   @ApiOkResponse({ type: HeroEntity })
-  update(@Param("id") id: string, @Body() updateHeroDto: UpdateHeroDto) {
-    return this.heroService.update(+id, updateHeroDto);
+  update(
+    @Param("id", ParseIntPipe) id: number,
+    @Body() updateHeroDto: UpdateHeroDto,
+  ) {
+    return this.heroService.update(id, updateHeroDto);
   }
 
   /**
@@ -69,7 +73,7 @@ export class HeroController {
    */
   @Delete(":id")
   @ApiOkResponse({ type: HeroEntity })
-  remove(@Param("id") id: string) {
-    return this.heroService.remove(+id);
+  remove(@Param("id", ParseIntPipe) id: number) {
+    return this.heroService.remove(id);
   }
 }
