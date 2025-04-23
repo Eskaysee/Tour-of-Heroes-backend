@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  NotFoundException,
 } from "@nestjs/common";
 import { HeroService } from "./hero.service";
 import { CreateHeroDto } from "./dto/create-hero.dto";
@@ -47,8 +48,12 @@ export class HeroController {
    */
   @Get(":id")
   @ApiOkResponse({ type: HeroEntity })
-  findOne(@Param("id", ParseIntPipe) id: number) {
-    return this.heroService.findOne(id);
+  async findOne(@Param("id", ParseIntPipe) id: number) {
+    const hero = await this.heroService.findOne(id);
+    if (!hero) {
+      throw new NotFoundException(`Hero with ${id} does not exist.`);
+    }
+    return hero;
   }
 
   /**
